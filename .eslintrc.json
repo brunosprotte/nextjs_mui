@@ -1,3 +1,99 @@
 {
-  "extends": "next/core-web-vitals"
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "airbnb", 
+        "prettier", 
+        "eslint:recommended", 
+        "plugin:react/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "@typescript-eslint", "react-hooks"],
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/display-name": "off",
+        "react/prop-types": "off",
+        "react/jsx-props-no-spreading": ["off"],
+        "react/require-default-props": [2, { "ignoreFunctionalComponents": true }],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "import/extensions": "off",
+        "no-use-before-define": "off",
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 2 }],
+        "no-console": "error",
+        "prefer-const": "error",
+        "prefer-spread": "error",
+        "object-curly-spacing": [1, "always"],
+        "comma-style": ["error", "last"],
+        "semi": [2, "always"],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "dot-location": ["error", "property"],
+        "function-call-argument-newline": ["error", "consistent"],
+        "brace-style": "error",
+        "curly": ["error", "all"],
+        "arrow-body-style": ["error", "as-needed"],
+        "padding-line-between-statements": [
+            "error",
+            { "blankLine": "always", "prev": "*", "next": ["block", "block-like"] },
+            { "blankLine": "always", "prev": "multiline-expression", "next": "multiline-expression" },
+            { "blankLine": "always", "prev": "multiline-expression", "next": "expression" },
+            { "blankLine": "always", "prev": "*", "next": ["multiline-const", "multiline-let", "multiline-var"] },
+            {
+                "blankLine": "never",
+                "prev": ["singleline-const", "singleline-let", "singleline-var"],
+                "next": ["singleline-const", "singleline-let", "singleline-var"]
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "**/*.test.js",
+                    "**/*.spec.js",
+                    "**/*.test.ts",
+                    "**/*.spec.ts",
+                    "**/*.test.tsx",
+                    "**/*.spec.tsx",
+                    "src/tests/wrappers/theme-wrapper.tsx"
+                ]
+            }
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 120,
+                "ignoreComments": true,
+                "ignoreStrings": true,
+                "ignoreUrls": true,
+                "ignorePattern": "d=\"([\\s\\S]*?)\""
+            }
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
+    }
 }
