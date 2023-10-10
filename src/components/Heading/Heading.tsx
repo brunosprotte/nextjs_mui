@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 interface HeadingProps {
     title: string,
@@ -8,19 +8,27 @@ interface HeadingProps {
 export const Heading: React.FC<HeadingProps> = ({
     title, description
 }) => ( 
-    <div>
-        <Typography variant="h3">
-            {title}
-        </Typography>
+    <>
+        <Grid container spacing={2}>
 
-        <Typography 
-            variant="subtitle1"
-            paragraph={true} 
-            color="GrayText"
-        >
-            {description}
-        </Typography>
-    </div>
+            <Grid item xs={'auto'}>
+                <Typography variant="h3">
+                    {title}
+                </Typography>
+            </Grid>
+
+            <Grid item xs={'auto'}>
+                <Typography 
+                    variant="subtitle1"
+                    paragraph={true} 
+                    color="GrayText"
+                >
+                    {description}
+                </Typography>
+            </Grid>
+        </Grid>
+    </>
+    
 );
 
 export default Heading;
