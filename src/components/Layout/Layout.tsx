@@ -1,15 +1,15 @@
-import { useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react';
 
-import { Box } from '@mui/material'
-import Head from 'next/head'
-import SideMenu from '../SideMenu/SideMenu'
-import scss from './Layout.module.scss'
+import { Box } from '@mui/material';
+import Head from 'next/head';
+import SideMenu from '../SideMenu/SideMenu';
+import scss from './Layout.module.scss';
 
 const Layout = (props: any) => {
-    const { data: session } = useSession()
+    const { data: session } = useSession();
 
     return (
-        <Box sx={{display: 'flex'}}>
+        <Box display="flex">
             <Head>
                 <title>DataSoft - Data Dashboard</title>
                 <meta name="description" content="Data Dashboard" />
@@ -22,7 +22,7 @@ const Layout = (props: any) => {
                 {/* <Footer /> */}
             </main>
         </Box>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

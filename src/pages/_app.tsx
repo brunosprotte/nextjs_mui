@@ -1,11 +1,11 @@
+import React, { useMemo } from 'react';
+import { CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { SessionProvider } from 'next-auth/react';
 import Header from '@/components/Header/Header';
 import Layout from '@/components/Layout';
 import darkTheme from '@/theme/darkTheme';
 import lightTheme from '@/theme/lightTheme';
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { SessionProvider } from 'next-auth/react';
-import React, { useMemo } from 'react';
 
 const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
@@ -28,7 +28,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
     const lightThemeChosen = useMemo(() =>
         createTheme({
             ...lightTheme,
-        }),[mode]);
+        }), [mode]);
 
     return (
         <ColorModeContext.Provider value={colorMode}>

@@ -1,9 +1,8 @@
-import { Settings } from '@mui/icons-material';
+import { useState } from 'react';
+
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import Person2Icon from '@mui/icons-material/Person2';
+
 import { Drawer, useMediaQuery } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -13,11 +12,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { CSSObject, Theme, useTheme } from '@mui/material/styles';
-import { useState } from 'react';
-
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import scss from './SideMenu.module.scss';
+import useRoutes from '@/hooks/useRoutes';
 
 const drawerWidth = 240;
 
@@ -42,22 +39,19 @@ const closedMixin = (theme: Theme): CSSObject => ({
     },
 });
 
-const menuRouteList = ['data', 'profile', 'settings', ''];
-const menuListTranslations = ['Data', 'Profile', 'Settings', 'Sign Out'];
-const menuListIcons = [<EqualizerIcon />, <Person2Icon />, <Settings />, <ExitToAppIcon />];
-
 function SideMenu() {
     const theme = useTheme();
+    const routes = useRoutes();
     const [open, setOpen] = useState(false);    const mobileCheck = useMediaQuery('(min-width: 600px)');
 
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
-    const handleListItemButtonClick = (text: string) => {
-        // eslint-disable-next-line no-unused-expressions
-        text === 'Sign Out' ? signOut() : null;
-        // setOpen(false)
+    const handleListItemButtonClick = (onClick) => {
+        if (onClick && typeof onClick === 'function') {
+            return onClick();
+        }
     };
     
     return (
@@ -95,19 +89,19 @@ function SideMenu() {
             <Divider />
 
             <List>
-                {menuListTranslations.map((text, index) => (
+                {routes.map(({ label, href, onClick, icon: Icon }) => (
                     <ListItem 
-                        key={text} 
+                        key={label} 
                         disablePadding 
                         sx={{
                             display: 'block', 
                             textShadow: `0px 0px 3px ${theme.palette.mode === 'dark' ? '#000' : '#fff'} ` 
                         }}>
-                        <Link className={scss.link} href={`/dashboard/${menuRouteList[index]}`}>
+                        <Link className={scss.link} href={`${href}`}>
                             <ListItemButton
-                                onClick={() => handleListItemButtonClick(text)}
-                                title={text}
-                                aria-label={text}
+                                onClick={() => handleListItemButtonClick(onClick)}
+                                title={label}
+                                aria-label={label}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
@@ -121,15 +115,16 @@ function SideMenu() {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    {menuListIcons[index]}
+                                    <Icon />
+
                                 </ListItemIcon>
                                 <ListItemText
-                                    primary={text}
+                                    primary={label}
                                     sx={{
                                         color: theme.palette.text.primary,
                                         opacity: open ? 1 : 0,
                                     }}
-                                />{' '}
+                                />
                             </ListItemButton>
                         </Link>
                     </ListItem>
