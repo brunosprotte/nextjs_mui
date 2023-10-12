@@ -16,7 +16,7 @@ const ServicesClient: React.FC<ServicesClientProps> = ({ data }) => {
     
     return (
         <>  
-            <Grid container spacing={2}>
+            <Grid container spacing={2} width={'80vw'}>
                 <Grid item xs={8}>
                     <Heading 
                         title='Services' 

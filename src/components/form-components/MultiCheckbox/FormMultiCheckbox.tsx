@@ -42,6 +42,7 @@ const FormMultiCheckbox: React.FC<FormInputProps> = ({
     useEffect(() => {
         setValue(name, selectedItems);
     }, [name, selectedItems, setValue]);
+    
     return (
         <FormControl size={"small"} variant={"outlined"}>
             <FormLabel component="legend">{label}</FormLabel>

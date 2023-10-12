@@ -71,6 +71,12 @@
                 ]
             }
         ],
+        "object-curly-newline": [
+            "error",
+            // {"ImportDeclaration": "always", "ExportDeclaration": "never"},
+            // { "minProperties": 4 }
+            { "consistent": true },
+        ],
         "max-len": [
             "error",
             {
