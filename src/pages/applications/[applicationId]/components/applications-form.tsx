@@ -34,31 +34,31 @@ const defaultValues = {
     sliderValue: 0,
 };
 
-type Service = {
+type Application = {
     name: string
     applicationId: string
 }
 
-type Application = {
-    value: string
-    label: string
-}
+// type Application = {
+//     value: string
+//     label: string
+// }
 
 const formSchema = z.object({
     name: z.string().min(1).default(""),
     applicationId: z.string().min(1).default(""),
 })
 
-type ServiceFormValues = z.infer<typeof formSchema>;
+type ApplicationFormValues = z.infer<typeof formSchema>;
 
-type ServiceFormProps = {
-    initialData: Service | null
-    applications: Application[]
+type ApplicationFormProps = {
+    initialData: Application | null
+    // applications: Application[]
 }
 
-export const ServicesForm: React.FC<ServiceFormProps> = ({
+export const ApplicationsForm: React.FC<ApplicationFormProps> = ({
     initialData,
-    applications
+    // applications
 }) => {
     
     const router = useRouter();
@@ -68,7 +68,7 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
 
     const {
         handleSubmit, reset, control, setValue 
-    } = useForm<ServiceFormValues>({
+    } = useForm<ApplicationFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData
         ? initialData
@@ -78,21 +78,21 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
         }, 
     });
 
-    // const onSubmit = (data: ServiceFormValues) => console.log(data);
+    // const onSubmit = (data: ApplicationFormValues) => console.log(data);
 
-    const onSubmit = async (data: ServiceFormValues) => {
+    const onSubmit = async (data: ApplicationFormValues) => {
         console.log('form data', data)
         try {
             setLoading(true)
 
             if (initialData) {
-                await axios.patch(`/api/services/${params.serviceId}`, data)
+                await axios.patch(`/api/applications/${params.applicationId}`, data)
             } else {
-                await axios.post(`/api/services`, data)
+                await axios.post(`/api/applications`, data)
             }
 
             router.refresh()
-            router.push(`/services`)
+            router.push(`/applications`)
 
             // toast.success(toastMessage)
         } catch(error) {
@@ -106,7 +106,7 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
     return (
         <>
             <Grid container direction={'row'}  spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 8 }} height={'80vh'} width={"50vw"} alignContent={"flex-start"}>
-                <Grid xs={2} sm={4} md={4}>
+                {/* <Grid xs={2} sm={4} md={4}>
                     <ApplicationDropdown
                         name="applicationId"
                         control={control}
@@ -114,10 +114,10 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
                         options={applications}
                     />
                     
-                </Grid>
+                </Grid> */}
 
                 <Grid xs={2} sm={4} md={4}>
-                    <FormText name="name" control={control} label="Service name" />
+                    <FormText name="name" control={control} label="Application name" />
                 </Grid>
 
                 {/* <Grid item xs={12} sm={4} md={4} lg={8} xl={12}>
@@ -173,4 +173,4 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
     );
 };
 
-export default ServicesForm;
+export default ApplicationsForm;

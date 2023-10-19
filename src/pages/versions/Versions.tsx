@@ -1,7 +1,7 @@
 import { Grid, Paper,  } from '@mui/material';
-import ServicesClient from './components/services-client';
+import VersionsClient from './components/versions-client';
 
-const Service = () => {
+const Version = () => {
 
     const rows = [
         { id: '1', description: 'Snow', version: 'Jon' },
@@ -10,11 +10,11 @@ const Service = () => {
     return (
         <Grid container spacing={2} marginTop={'20px'} >
             <Paper sx={{ padding: '20px' }}>
-                <ServicesClient data={rows}/>
+                <VersionsClient data={rows}/>
             </Paper> 
         </Grid>
         
     );
 };
  
-export default Service;
+export default Version;

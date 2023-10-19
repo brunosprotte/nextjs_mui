@@ -11,13 +11,13 @@ export const Heading: React.FC<HeadingProps> = ({
     <>
         <Grid container spacing={2}>
 
-            <Grid item xs={'auto'}>
+            <Grid item xs={8}>
                 <Typography variant="h3">
                     {title}
                 </Typography>
             </Grid>
 
-            <Grid item xs={'auto'}>
+            <Grid item xs={8}>
                 <Typography 
                     variant="subtitle1"
                     paragraph={true} 

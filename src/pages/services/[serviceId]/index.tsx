@@ -2,9 +2,9 @@ import {Box, Grid, Paper } from "@mui/material";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import ServiceForm from "./components/services-form";
+import ServicesForm from "./components/services-form";
 
-const ServicePage = ({
+const ServicesPage = ({
     params
 }:{
     params: {serviceId: string}
@@ -15,6 +15,7 @@ const ServicePage = ({
     
     useEffect( () => { 
         async function fetchService() {
+            if (!params?.serviceId) return
             try {
                 const {data} = await axios.get('/api/services/', {data: params.serviceId}); 
                 setService(data);
@@ -36,9 +37,9 @@ const ServicePage = ({
 
     return (
         
-        <Box marginTop={'20px'}  >
+        <Box marginTop={'20px'} >
             <Paper sx={{ padding: '20px'}}>
-                <ServiceForm 
+                <ServicesForm 
                     applications={applications}
                     initialData={service}
                 />
@@ -48,4 +49,4 @@ const ServicePage = ({
     );
 };
 
-export default ServicePage;
+export default ServicesPage;

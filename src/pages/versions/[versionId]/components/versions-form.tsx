@@ -15,52 +15,35 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
+import ServiceDropdown from "@/components/ServiceDropdown/ServiceDropdown";
 
-interface IFormInput {
-  textValue: string;
-  radioValue: string;
-  checkboxValue: string[];
-  dateValue: Date;
-  dropdownValue: string;
-  sliderValue: number;
+type Version = {
+    version: string
+    serviceId: string
 }
-
-const defaultValues = {
-    textValue: "",
-    radioValue: "",
-    checkboxValue: [],
-    dateValue: new Date(),
-    dropdownValue: "",
-    sliderValue: 0,
-};
 
 type Service = {
-    name: string
-    applicationId: string
-}
-
-type Application = {
     value: string
     label: string
 }
 
 const formSchema = z.object({
-    name: z.string().min(1).default(""),
-    applicationId: z.string().min(1).default(""),
+    version: z.string().min(1).default(""),
+    serviceId: z.string().min(1).default(""),
 })
 
-type ServiceFormValues = z.infer<typeof formSchema>;
+type VersionFormValues = z.infer<typeof formSchema>;
 
-type ServiceFormProps = {
-    initialData: Service | null
-    applications: Application[]
+type VersionFormProps = {
+    initialData: Version | null
+    services: Service[]
 }
 
-export const ServicesForm: React.FC<ServiceFormProps> = ({
+export const VersionsForm: React.FC<VersionFormProps> = ({
     initialData,
-    applications
+    services
 }) => {
-    
+
     const router = useRouter();
     const params = useParams();
 
@@ -68,31 +51,29 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
 
     const {
         handleSubmit, reset, control, setValue 
-    } = useForm<ServiceFormValues>({
+    } = useForm<VersionFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData
         ? initialData
         : {
-            name: '',
-            applicationId: ''
+            version: '',
+            serviceId: ''
         }, 
     });
 
-    // const onSubmit = (data: ServiceFormValues) => console.log(data);
-
-    const onSubmit = async (data: ServiceFormValues) => {
+    const onSubmit = async (data: VersionFormValues) => {
         console.log('form data', data)
         try {
             setLoading(true)
 
             if (initialData) {
-                await axios.patch(`/api/services/${params.serviceId}`, data)
+                await axios.patch(`/api/versions/${params.versionId}`, data)
             } else {
-                await axios.post(`/api/services`, data)
+                await axios.post(`/api/versions`, data)
             }
 
             router.refresh()
-            router.push(`/services`)
+            router.push(`/versions`)
 
             // toast.success(toastMessage)
         } catch(error) {
@@ -107,17 +88,17 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
         <>
             <Grid container direction={'row'}  spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 8 }} height={'80vh'} width={"50vw"} alignContent={"flex-start"}>
                 <Grid xs={2} sm={4} md={4}>
-                    <ApplicationDropdown
-                        name="applicationId"
+                    <ServiceDropdown
+                        name="serviceId"
                         control={control}
-                        label="Application"
-                        options={applications}
+                        label="Service"
+                        options={services}
                     />
                     
                 </Grid>
 
                 <Grid xs={2} sm={4} md={4}>
-                    <FormText name="name" control={control} label="Service name" />
+                    <FormText name="version" control={control} label="Version" />
                 </Grid>
 
                 {/* <Grid item xs={12} sm={4} md={4} lg={8} xl={12}>
@@ -173,4 +154,4 @@ export const ServicesForm: React.FC<ServiceFormProps> = ({
     );
 };
 
-export default ServicesForm;
+export default VersionsForm;

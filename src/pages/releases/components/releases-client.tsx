@@ -1,17 +1,17 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Divider, Grid } from '@mui/material';
 
 import { DataGrid } from '@mui/x-data-grid';
 import columns from './columns';
 import Heading from '@/components/Heading/Heading';
 import {  useRouter } from 'next/navigation';
 import { Add } from '@mui/icons-material';
-import { ServicesColumns } from './columns';
+import { ReleasesColumns } from './columns';
 
-interface ServicesClientProps {
-    data: ServicesColumns[]
+interface ReleasesClientProps {
+    data: ReleasesColumns[]
 }
 
-const ServicesClient: React.FC<ServicesClientProps> = ({ data }) => {
+const ReleasesClient: React.FC<ReleasesClientProps> = ({ data }) => {
     const router = useRouter();
     
     return (
@@ -19,14 +19,14 @@ const ServicesClient: React.FC<ServicesClientProps> = ({ data }) => {
             <Grid container spacing={2} width={'50vw'}>
                 <Grid item xs={8}>
                     <Heading 
-                        title='Services' 
-                        description='Manage the services that compose your application'
+                        title='Releases' 
+                        description='Manage your releases'
                     />
                 </Grid>
                 
                 <Grid item xs={4}>
                     <Box display="flex" justifyContent="flex-end">
-                        <Button variant='contained' onClick={() => router.push(`/services/new`)}>
+                        <Button variant='contained' onClick={() => router.push(`/releases/new`)}>
                             <Add sx={{ marginRight: '8px' }} />
                             Add new
                         </Button>
@@ -35,7 +35,7 @@ const ServicesClient: React.FC<ServicesClientProps> = ({ data }) => {
                 </Grid>
            
             </Grid>
-
+        
             <Box height={'70vh'}>
                 <DataGrid
                     rows={data}
@@ -53,4 +53,4 @@ const ServicesClient: React.FC<ServicesClientProps> = ({ data }) => {
     );
 };
  
-export default ServicesClient;
+export default ReleasesClient;
