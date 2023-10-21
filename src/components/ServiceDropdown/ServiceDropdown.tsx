@@ -1,6 +1,7 @@
 
 import {
     FormControl, 
+    FormHelperText, 
     InputLabel,
     MenuItem, 
     Select 
@@ -33,18 +34,36 @@ const ServiceDropdown: React.FC<FormInputProps & DropdownProps> = ({
  });
 
     return (
-        <FormControl size={"small"} sx={{ width: "100%"}}>
+        <FormControl size={"small"} fullWidth >
             <InputLabel>{label}</InputLabel>
             <Controller
-                render={({ field: { onChange, value } }) => (
-                    <Select onChange={onChange} value={value}>
-                        {generateSingleOptions()}
-                    </Select>
-                )}
                 control={control}
                 name={name}
+                render={({ 
+                    field: { onChange, value },
+                    fieldState: { error }, 
+                    formState,
+                }) => (
+                    <>
+                        <Select 
+                            onChange={onChange} 
+                            value={value} 
+                            size="small" 
+                            error={!!error}
+                            label={label}
+                        >
+                             <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {generateSingleOptions()}
+                        </Select>
+                        <FormHelperText error={!!error}> {error ? error.message : null}</FormHelperText>
+                    </>
+                    
+                )}
+                
             />
-        </FormControl>
+         </FormControl>
     );
 };
 

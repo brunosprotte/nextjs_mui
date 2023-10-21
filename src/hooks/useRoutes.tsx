@@ -14,8 +14,7 @@ import AltRouteIcon from '@mui/icons-material/AltRoute';
 const useRoutes = () => {
     const pathname = usePathname();
 
-    const routes = useMemo(
-        () => [
+    const routes = useMemo(() => [
             {
                 label: 'Versions',
                 href: '/versions',
